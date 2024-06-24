@@ -32,6 +32,7 @@ function initWheel() {
     row += "</div>";
 
     for (let x = 0; x < 29; x++) {
+        console.log(row)
         wheel.insertAdjacentHTML('beforeend', row);
     }
 }
@@ -41,25 +42,18 @@ function spinWheel(roll) {
     const order = [0, 11, 5, 10, 6, 9, 7, 8, 1, 14, 2, 13, 3, 12, 4];
     const position = order.indexOf(roll);
 
-    const rows = 12;
-    const card = 75 + 3 * 2;
+    const rows = 8; // how many full rotations are spun
+    const card = 75 + 3 * 2; // pixel width
     let landingPosition = rows * 15 * card + position * card;
 
     const randomize = Math.floor(Math.random() * 75) - 75 / 2;
 
     landingPosition = landingPosition + randomize;
 
-    const object = {
-        x: Math.floor(Math.random() * 50) / 100,
-        y: Math.floor(Math.random() * 20) / 100
-    };
-
-    wheel.style.transitionTimingFunction = `cubic-bezier(0, ${object.x}, ${object.y}, 1)`;
     wheel.style.transitionDuration = '6s';
     wheel.style.transform = `translate3d(-${landingPosition}px, 0px, 0px)`;
 
     setTimeout(function () {
-        wheel.style.transitionTimingFunction = '';
         wheel.style.transitionDuration = '';
 
         const resetTo = -(position * card + randomize);
