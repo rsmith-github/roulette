@@ -1,3 +1,5 @@
+const socket = new WebSocket('ws://localhost:8080');
+
 document.addEventListener('DOMContentLoaded', function () {
 
 
@@ -7,12 +9,13 @@ document.addEventListener('DOMContentLoaded', function () {
         handleLogin();
     }
 
-    const socket = new WebSocket('ws://localhost:8080');
+    handleAdminRoll();
 
     socket.addEventListener('message', (event) => {
         const num = parseInt(event.data);
-        // spinWheel(num);
+        spinWheel(num);
     });
+
 });
 
 function initWheel() {
@@ -89,5 +92,16 @@ function handleLogin() {
         };
     })
 
+
+}
+
+function handleAdminRoll() {
+
+    const rollButton = document.querySelector('.roll-button');
+
+    rollButton.addEventListener('click', () => {
+        const userObject = JSON.stringify({ name: localStorage.getItem('username') })
+        socket.send(userObject)
+    })
 
 }
