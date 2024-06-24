@@ -1,16 +1,33 @@
 document.addEventListener('DOMContentLoaded', function () {
-    initWheel();
+
+
+    if (localStorage.getItem("username")) {
+        initWheel();
+    } else {
+        handleLogin();
+    }
 
     const socket = new WebSocket('ws://localhost:8080');
 
     socket.addEventListener('message', (event) => {
         const num = parseInt(event.data);
-        spinWheel(num);
+        // spinWheel(num);
     });
 });
 
 function initWheel() {
     const wheel = document.querySelector('.roulette-wrapper .wheel');
+
+    // show roulette wrapper
+    document.querySelector('.roulette-wrapper').style.display = 'flex';
+
+    // hide login
+    document.querySelector('.login-screen').style.display = 'none'
+
+    if (localStorage.getItem('username') === 'admin') {
+        document.getElementById('roll-button').style.display = 'block';
+    }
+
     let row = '';
 
     row += "<div class='row'>";
@@ -32,7 +49,6 @@ function initWheel() {
     row += "</div>";
 
     for (let x = 0; x < 29; x++) {
-        console.log(row)
         wheel.insertAdjacentHTML('beforeend', row);
     }
 }
@@ -59,4 +75,19 @@ function spinWheel(roll) {
         const resetTo = -(position * card + randomize);
         wheel.style.transform = `translate3d(${resetTo}px, 0px, 0px)`;
     }, 6 * 1000);
+}
+
+function handleLogin() {
+
+    const username = document.getElementById('username');
+    const button = document.getElementById('login-button');
+
+    button.addEventListener('click', () => {
+        if (username.value || localStorage.getItem("username")) {
+            localStorage.setItem('username', username.value)
+            initWheel();
+        };
+    })
+
+
 }
