@@ -13,7 +13,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     socket.addEventListener('message', (event) => {
         const num = parseInt(event.data);
-        spinWheel(num);
+        if (Number.isInteger(num)) {
+            spinWheel(num);
+        }
     });
 
 });
@@ -72,24 +74,48 @@ function spinWheel(roll) {
     wheel.style.transitionDuration = '6s';
     wheel.style.transform = `translate3d(-${landingPosition}px, 0px, 0px)`;
 
-    setTimeout(function () {
-        wheel.style.transitionDuration = '';
 
-        const resetTo = -(position * card + randomize);
-        wheel.style.transform = `translate3d(${resetTo}px, 0px, 0px)`;
-    }, 6 * 1000);
+    let promise1 = new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            wheel.style.transitionDuration = '';
+
+            const resetTo = -(position * card + randomize);
+            wheel.style.transform = `translate3d(${resetTo}px, 0px, 0px)`;
+            resolve();
+        }, 6 * 1000);
+
+    })
+
+    Promise.all([promise1]).then(function () {
+
+        function updateScores() {
+            socket.send(JSON.stringify({ name: 'updateScores' }))
+            console.log('notified server to update scores');
+        }
+        updateScores();
+
+    })
+
+
+
 }
 
 function handleLogin() {
 
     const username = document.getElementById('username');
-    const button = document.getElementById('login-button');
+    const loginButton = document.getElementById('login-button');
 
-    button.addEventListener('click', () => {
+    loginButton.addEventListener('click', () => {
         if (username.value || localStorage.getItem("username")) {
             localStorage.setItem('username', username.value)
             initWheel();
+
+            // send message to add user to 'database'
+            socket.send(JSON.stringify({ name: 'login', username: username.value }))
+
         };
+
+
     })
 
 
