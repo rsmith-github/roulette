@@ -28,6 +28,10 @@ wss.on('connection', (ws) => {
             console.log('updating scoreboard');
             // calculate who won, deduct form other users and give to winner.
 
+            for (key in users) {
+                console.log(`${key}:`, users[key]);
+            }
+
         }
 
     });

@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    handleLogout();
 });
 
 function initWheel() {
@@ -119,6 +120,17 @@ function handleLogin() {
     })
 
 
+}
+
+function handleLogout() {
+    document.querySelector('#logout').addEventListener('click', () => {
+        localStorage.removeItem('username');
+        // hide roulette wrapper
+        document.querySelector('.roulette-wrapper').style.display = 'none';
+
+        // show login
+        document.querySelector('.login-screen').style.display = 'block'
+    })
 }
 
 function handleAdminRoll() {

@@ -63,3 +63,26 @@ body {
 #roll-button {
   display: none;
 }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  color: white;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+    background: #2d3035;
+}
+
+
+.nav {
+    display: flex;
+    justify-content: flex-end;
+}
