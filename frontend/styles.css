@@ -78,11 +78,16 @@ th {
 }
 
 tr:nth-child(even) {
-    background: #2d3035;
+  background: #2d3035;
 }
 
-
 .nav {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#bets {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }

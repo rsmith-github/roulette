@@ -21,17 +21,21 @@ wss.on('connection', (ws) => {
                     ws.send(random_number)
                 }
             })
-        } else if (messageObject.name === "login" && messageObject.username) {
+        } else if (messageObject.name === "login" && messageObject.username && messageObject.username !== 'admin') {
             // all users start with 100 coins.
-            users[messageObject.username] = 100;
+            users[messageObject.username] = { coins: 100 };
+            sendUsers(messageObject);
+
         } else if (messageObject.name === "updateScores") {
             console.log('updating scoreboard');
-            // calculate who won, deduct form other users and give to winner.
 
+            // calculate who won, deduct from other users and give to winner.
             for (key in users) {
                 console.log(`${key}:`, users[key]);
             }
 
+        } else if (messageObject.name === 'bet') {
+            sendUsers(messageObject);
         }
 
     });
@@ -39,3 +43,13 @@ wss.on('connection', (ws) => {
     ws.send(JSON.stringify(users))
 
 });
+
+// update table for all clients
+function sendUsers(messageObject) {
+    users[messageObject.username]['bet'] = messageObject.bet
+
+    wss.clients.forEach(ws => {
+        ws.send(JSON.stringify(users))
+    })
+
+}

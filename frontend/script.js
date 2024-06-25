@@ -12,12 +12,30 @@ document.addEventListener('DOMContentLoaded', function () {
     handleAdminRoll();
 
     socket.addEventListener('message', (event) => {
-        const num = parseInt(event.data);
-        if (Number.isInteger(num)) {
-            spinWheel(num);
+        const data = parseInt(event.data);
+
+        if (Number.isInteger(data)) {
+
+            spinWheel(data);
+
+        } else {
+
+            let table = document.getElementById('table');
+            let parsed = JSON.parse(event.data)
+
+            // set header row
+            table.innerHTML = '<tr><th>Name</th><th>Bet Placed</th><th>Score</th></tr>'
+
+            // other rows
+            for (user in parsed) {
+                if (parsed[user]) {
+                    table.insertAdjacentHTML("beforeend", `<tr name="${user}"><td>${user}</td><td>${parsed[user].bet === undefined ? 'no bet placed' : parsed[user].bet}</td > <td>${parsed[user].coins}</td></tr > `)
+                }
+            }
         }
     });
 
+    handleBets();
     handleLogout();
 });
 
@@ -32,6 +50,7 @@ function initWheel() {
 
     if (localStorage.getItem('username') === 'admin') {
         document.getElementById('roll-button').style.display = 'block';
+        document.getElementById('bets').style.display = 'none';
     }
 
     let row = '';
@@ -90,8 +109,10 @@ function spinWheel(roll) {
     Promise.all([promise1]).then(function () {
 
         function updateScores() {
-            socket.send(JSON.stringify({ name: 'updateScores' }))
-            console.log('notified server to update scores');
+            if (localStorage.getItem('username') === 'admin') {
+                socket.send(JSON.stringify({ name: 'updateScores' }))
+                console.log('notified server to update scores');
+            }
         }
         updateScores();
 
@@ -140,6 +161,18 @@ function handleAdminRoll() {
     rollButton.addEventListener('click', () => {
         const userObject = JSON.stringify({ name: localStorage.getItem('username') })
         socket.send(userObject)
+    })
+
+}
+
+
+function handleBets() {
+
+    document.getElementById('bet-button').addEventListener('click', () => {
+        // get bet amount
+        let bet = document.getElementById('bet-amount').value
+
+        socket.send(JSON.stringify({ name: 'bet', username: localStorage.getItem('username'), bet: bet, amount: 10 }))
     })
 
 }
