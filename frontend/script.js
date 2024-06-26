@@ -12,12 +12,14 @@ document.addEventListener('DOMContentLoaded', function () {
     handleAdminRoll();
 
     socket.addEventListener('message', (event) => {
-        const data = parseInt(event.data);
 
+        const data = parseInt(event.data);
         if (Number.isInteger(data)) {
 
             spinWheel(data);
 
+        } else if (event.data === "no money") {
+            alert("sorry, insufficient funds")
         } else {
 
             let table = document.getElementById('table');
