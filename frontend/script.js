@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let parsed = JSON.parse(event.data)
 
             // set header row
-            table.innerHTML = '<tr><th>Name</th><th>Bet Placed</th><th>Score</th></tr>'
+            table.innerHTML = '<tr><th>Name</th><th>Bet Placed</th><th>Coins</th></tr>'
 
             // other rows
             for (user in parsed) {
