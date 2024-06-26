@@ -91,6 +91,12 @@ function spinWheel(roll) {
 
     landingPosition = landingPosition + randomize;
 
+    let object = {
+        x: Math.floor(Math.random() * 50) / 100,
+        y: Math.floor(Math.random() * 20) / 100
+    };
+
+    wheel.style.transitionTimingFunction = 'cubic-bezier(0,' + object.x + ',' + object.y + ',1)';
     wheel.style.transitionDuration = '6s';
     wheel.style.transform = `translate3d(-${landingPosition}px, 0px, 0px)`;
 
