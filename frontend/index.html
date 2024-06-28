@@ -1,57 +1,70 @@
-<link
-  href="https://fonts.googleapis.com/css?family=Titillium+Web"
-  rel="stylesheet"
-/>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css?family=Titillium+Web"
+      rel="stylesheet"
+    />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
-<link rel="stylesheet" href="styles.css" />
-<script src="script.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js"></script>
 
-<div class="nav">
-  <input type="button" value="logout" id="logout" />
-</div>
+    <title>Roulette</title>
 
-<div class="roulette-wrapper">
-  <div class="selector"></div>
-  <div class="wheel"></div>
-</div>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<div class="login-screen">
-  <input type="text" name="username" id="username" />
-  <input type="button" id="login-button" value="login" />
-</div>
+  </head>
 
-<div>
-  <input type="button" value="Roll" id="roll-button" class="roll-button" />
-</div>
+  <body>
+    <div class="nav">
+      <input type="button" value="logout" id="logout" />
+    </div>
 
-<form id="bets">
-  <select name="bet" id="bet-amount">
-    <option value="0">0</option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-    <option value="10">10</option>
-    <option value="11">11</option>
-    <option value="12">12</option>
-    <option value="13">13</option>
-    <option value="14">14</option>
-  </select>
-  <input type="button" value="place bet" id="bet-button" />
-</form>
+    <div class="roulette-wrapper">
+      <div class="selector"></div>
+      <div class="wheel"></div>
+    </div>
 
-<table>
-  <tbody id="table">
-    <tr>
-      <th>Name</th>
-      <th>Bet Placed</th>
-      <th>Coins</th>
-    </tr>
-  </tbody>
-</table>
+    <div class="login-screen">
+      <input type="text" name="username" id="username" />
+      <input type="button" id="login-button" value="login" />
+    </div>
+
+    <div>
+      <input type="button" value="Roll" id="roll-button" class="roll-button" />
+    </div>
+
+    <form id="bets">
+      <select name="bet" id="bet-amount">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+      </select>
+      <input type="button" value="place bet" id="bet-button" />
+    </form>
+
+    <table>
+      <tbody id="table">
+        <tr>
+          <th>Name</th>
+          <th>Bet Placed</th>
+          <th>Coins</th>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

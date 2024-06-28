@@ -1,4 +1,4 @@
-const socket = new WebSocket('ws://localhost:8080');
+const socket = new WebSocket('wss://<tunnel-id>.uks1.devtunnels.ms/');
 
 document.addEventListener('DOMContentLoaded', function () {
 
